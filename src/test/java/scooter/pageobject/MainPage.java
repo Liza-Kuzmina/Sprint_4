@@ -52,9 +52,22 @@ public class MainPage {
         element.click();
     }
 
+    public void expandFaqQuestion(int index) {
+        String faqQuestionId = String.format("accordion__heading-%d", index);
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(faqQuestionId)));
+        driver.findElement(By.id(faqQuestionId)).click();
+    }
+
+    public void waitForFaqAnswerVisibility(int index) {
+        String answerId = String.format("accordion__panel-%d", index);
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(answerId)));
+    }
+
     // Прокрутить до блока FAQ, кликнуть по вопросу и вернуть текст ответа
     public String getFaqAnswerText(int index) {
-        // Преобразуем в локальные переменные — используем только внутри метода
+        // Преобразуем в локальные переменные
         String faqQuestionId = "accordion__heading-%d";
         String faqAnswerId = "accordion__panel-%d";
 
