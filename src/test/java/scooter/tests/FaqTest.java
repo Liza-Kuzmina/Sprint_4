@@ -43,7 +43,7 @@ public class FaqTest {
         driver.get("https://qa-scooter.praktikum-services.ru/");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cookie-policy")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("App_CookieText__1sbqp")));
     }
 
 

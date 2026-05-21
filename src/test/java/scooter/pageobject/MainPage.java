@@ -2,7 +2,6 @@ package scooter.pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,13 +27,13 @@ public class MainPage {
         this.driver = driver;
     }
 
-    // Метод принятия кук
+    // Исправленный метод принятия кук
     public void acceptCookies() {
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(cookieButton)).click();
-        } catch (NoSuchElementException e) {
-            System.out.println("Кнопка принятия куки не найдена — продолжаем без её нажатия.");
+            new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.elementToBeClickable(cookieButton)).click();
+        } catch (Exception e) {
+            System.out.println("Плашка куки отсутствует — продолжаем выполнение теста.");
         }
     }
 
@@ -67,7 +66,6 @@ public class MainPage {
 
     // Прокрутить до блока FAQ, кликнуть по вопросу и вернуть текст ответа
     public String getFaqAnswerText(int index) {
-        // Преобразуем в локальные переменные
         String faqQuestionId = "accordion__heading-%d";
         String faqAnswerId = "accordion__panel-%d";
 
@@ -79,7 +77,6 @@ public class MainPage {
 
         question.click();
 
-        // Ожидаем появление текста
         new WebDriverWait(driver, WAIT_TIMEOUT)
                 .until(ExpectedConditions.visibilityOfElementLocated(answerLocator));
 
